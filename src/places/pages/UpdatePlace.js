@@ -1,9 +1,13 @@
 import React from 'react';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useParams} from 'react-router-dom/cjs/react-router-dom.min';
+import { useCallback } from 'react';
+
 
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
 import {VALIDATOR_REQUIRE,VALIDATOR_MINLENGTH} from  '../../shared/util/validators';
+
+import './PlaceForm.css';
 
 const DUMMY_PLACES = [
     {
@@ -35,19 +39,19 @@ const DUMMY_PLACES = [
   ];
 
 const UpdatePlace = () =>{
-   const placdId = useParams().placdId;
+  const placeId = useParams().placeId;
 
-   const identifiedPlace = DUMMY_PLACES.find(p=>p.id==placeId);
+  const identifiedPlace = DUMMY_PLACES.find(p => p.id === placeId);
+
+
+//    const titleInputHandler =useCallback((id,value,isValid) =>{
+
+//  },[]);
 
    if(!identifiedPlace){
-    return ( 
-        <div className='center'>
-            <h2>Could not find Place!</h2>
-        </div>
+    return ( <div className='center'><h2>Could not find Place!</h2></div>);}
 
-    );
-    return(
-       <form>
+    return(<form className='place-form'>
        <Input 
        id = "title"
        element ='input' 
@@ -55,7 +59,7 @@ const UpdatePlace = () =>{
        label = "Title" 
        errorText = "Please provide Valid Input."
        validators = {[VALIDATOR_REQUIRE()]} 
-        onInput = {titleInputHandler} 
+       onInput={() => {}}
         value = {identifiedPlace.title}
         valid = {true} /> 
         <Input 
@@ -65,7 +69,7 @@ const UpdatePlace = () =>{
         label = "Description" 
         errorText = "Please enter a valid description (at least 5 hcaracters)."
         validators = {[VALIDATOR_MINLENGTH(5)]} 
-         onInput = {titleInputHandler}
+        onInput={() => {}}
          value={identifiedPlace.description}
          valid= {true} /> 
          <Input 
@@ -75,7 +79,7 @@ const UpdatePlace = () =>{
          label = "Address" 
          errorText = "Please enter a valid description (at least 5 hcaracters)."
          validators = {[VALIDATOR_MINLENGTH(5)]} 
-          onInput = {titleInputHandler} 
+         onInput={() => {}}
           value = {identifiedPlace.address}
           valid = {true}
           /> 
@@ -84,6 +88,6 @@ const UpdatePlace = () =>{
        </form>
         
     );
-   }
+  
 };
 export default UpdatePlace;

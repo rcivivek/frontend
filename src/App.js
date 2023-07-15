@@ -24,8 +24,8 @@ const  App=() =>{
     <Route path='/places/new' exact>
        <NewPlace />
     </Route>
-    <Route path="/places/:placeId" exact>
-       <UpdatePlace/>
+    <Route path="/places/:placeId">
+       <UpdatePlace />
     </Route>
     <Redirect to='/'/>
     </Switch>

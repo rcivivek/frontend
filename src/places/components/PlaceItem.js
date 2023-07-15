@@ -3,6 +3,8 @@ import Card from '../../shared/components/UIElements/Card';
 import Button from '../../shared/components/FormElements/Button';
 import Modal from '../../shared/components/UIElements/Modal';
 
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+
 import './PlaceItem.css';
 
 const PlaceItem = props  =>{
@@ -34,7 +36,7 @@ const PlaceItem = props  =>{
             </div>
             <div className='place-item__actions'>
                <Button inverse onClick={openMapHandler}>View On Map</Button>
-               <Button to ={``}>EDIT</Button>
+               <Button to ={``}> <Link to={`/places/${props.id}`}>EDIT</Link> </Button>
                <Button danger>DELETE</Button>
             </div>
             </Card>
