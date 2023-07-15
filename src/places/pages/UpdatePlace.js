@@ -7,6 +7,8 @@ import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
 import {VALIDATOR_REQUIRE,VALIDATOR_MINLENGTH} from  '../../shared/util/validators';
 
+import { useForm } from '../../shared/hooks/form-hook';
+
 import './PlaceForm.css';
 
 const DUMMY_PLACES = [
@@ -43,10 +45,22 @@ const UpdatePlace = () =>{
 
   const identifiedPlace = DUMMY_PLACES.find(p => p.id === placeId);
 
+  const [formState, inputInputHandler] = useForm({
+    title:{
+      value:identifiedPlace.title,
+      isValid: true
+    },
+    description:{
+      value:identifiedPlace.description,
+      isValid: true
+    },
+    address:{
+      value:identifiedPlace.address,
+      isValid: true
+    },
+  },false);
 
-//    const titleInputHandler =useCallback((id,value,isValid) =>{
 
-//  },[]);
 
    if(!identifiedPlace){
     return ( <div className='center'><h2>Could not find Place!</h2></div>);}
@@ -59,7 +73,7 @@ const UpdatePlace = () =>{
        label = "Title" 
        errorText = "Please provide Valid Input."
        validators = {[VALIDATOR_REQUIRE()]} 
-       onInput={() => {}}
+       onInput={inputInputHandler}
         value = {identifiedPlace.title}
         valid = {true} /> 
         <Input 
@@ -69,7 +83,7 @@ const UpdatePlace = () =>{
         label = "Description" 
         errorText = "Please enter a valid description (at least 5 hcaracters)."
         validators = {[VALIDATOR_MINLENGTH(5)]} 
-        onInput={() => {}}
+        onInput={inputInputHandler}
          value={identifiedPlace.description}
          valid= {true} /> 
          <Input 
@@ -79,11 +93,11 @@ const UpdatePlace = () =>{
          label = "Address" 
          errorText = "Please enter a valid description (at least 5 hcaracters)."
          validators = {[VALIDATOR_MINLENGTH(5)]} 
-         onInput={() => {}}
+         onInput={inputInputHandler}
           value = {identifiedPlace.address}
           valid = {true}
           /> 
-         <Button type="submit" disabled= {true}>Update Place</Button>
+         <Button type="submit" disabled= {!formState.isValid}>Update Place</Button>
 
        </form>
         
