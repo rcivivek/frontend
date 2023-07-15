@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 
 import PlaceList from '../components/PlaceList';
+import Button from '../../shared/components/FormElements/Button';
 
 const DUMMY_PLACES = [
   {
