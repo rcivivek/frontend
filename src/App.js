@@ -8,6 +8,7 @@ import { Redirect ,Switch} from 'react-router-dom/cjs/react-router-dom.min';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 
 import UserPlaces from './places/pages/UserPlaces';
+import UpdatePlace from './places/pages/UpdatePlace';
 
 const  App=() =>{
   return <Router>
@@ -22,6 +23,9 @@ const  App=() =>{
     </Route>
     <Route path='/places/new' exact>
        <NewPlace />
+    </Route>
+    <Route path="/places/:placeId" exact>
+       <UpdatePlace/>
     </Route>
     <Redirect to='/'/>
     </Switch>
