@@ -9,6 +9,9 @@ import MainNavigation from './shared/components/Navigation/MainNavigation';
 
 import UserPlaces from './places/pages/UserPlaces';
 import UpdatePlace from './places/pages/UpdatePlace';
+import Authenticate from './user/pages/Authenticate';
+
+
 
 const  App=() =>{
   return <Router>
@@ -18,16 +21,25 @@ const  App=() =>{
     <Route path='/' exact>
        <Users />
     </Route>
-    <Route path="/:userId/places">
+    <Route path="/:userId/places" exact>
       <UserPlaces />
     </Route>
     <Route path='/places/new' exact>
        <NewPlace />
     </Route>
-    <Route path="/places/:placeId">
+    <Route path="/places/:placeId" exact>
        <UpdatePlace />
     </Route>
-    <Redirect to='/'/>
+    <Route path='/auth' exact>
+      <Authenticate login ={true}/>
+    </Route>
+    <Route path='/reg' exact> 
+      <Authenticate login={false}/>
+    </Route>
+     <Redirect to ='/'>
+    </Redirect>
+    {/* <Redirect to='/auth' exact/>
+       <Authenticate /> */}
     </Switch>
     </main>
     </Router>
