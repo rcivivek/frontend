@@ -2,6 +2,8 @@ import React, { useState ,useContext} from 'react';
 
 import Card from '../../shared/components/UIElements/Card';
 import Input from '../../shared/components/FormElements/Input';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import Button from '../../shared/components/FormElements/Button';
 import {
   VALIDATOR_EMAIL,
@@ -12,11 +14,13 @@ import { useForm } from '../../shared/hooks/form-hook';
 import { AuthContext } from '../../shared/context/auth-context';
 import './Auth.css';
 
+
 const Auth = () => {
   const auth = useContext(AuthContext);
 
   const [isLoginMode, setIsLoginMode] = useState(true);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();  
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: {
@@ -55,10 +59,33 @@ const Auth = () => {
     setIsLoginMode(prevMode => !prevMode);
   };
 
-  const authSubmitHandler = event => {
+  const authSubmitHandler = async event => {
     event.preventDefault();
-    console.log(formState.inputs);
+    try{
+      setIsLoading(true);
+      const response = await fetch('http://localhost:5000/api/user/signup',{
+        method: 'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+          name: formState.inputs.name.value,
+          email: formState.inputs.email.value,
+          password: formState.inputs.password.value
+        })
+      });
+      
+      const data = await response.json();
+      console.log(data);
+      setIsLoading(false);
+
     auth.login();
+
+    }catch(err){
+      console.log(err);
+      setIsLoading(false);
+      setError(err.message || 'Something Went wrong');
+    }
   };
 
   return (
