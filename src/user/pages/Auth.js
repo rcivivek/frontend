@@ -76,6 +76,9 @@ const Auth = () => {
       });
       
       const data = await response.json();
+      if(!data.ok){
+        throw new Error(data.message);
+      }
       console.log(data);
       setIsLoading(false);
 
@@ -87,9 +90,15 @@ const Auth = () => {
       setError(err.message || 'Something Went wrong');
     }
   };
+  const errorHandler= () =>{
+    setError(null);
+  }
 
   return (
+    <React.Fragment>
+    <ErrorModal error= {error} onClear={errorHandler}/>
     <Card className="authentication">
+      {isLoading && <LoadingSpinner asOverlay/> }
       <h2>Login Required</h2>
       <hr />
       <form onSubmit={authSubmitHandler}>
@@ -130,6 +139,7 @@ const Auth = () => {
         SWITCH TO {isLoginMode ? 'SIGNUP' : 'LOGIN'}
       </Button>
     </Card>
+    </React.Fragment>
   );
 };
 
