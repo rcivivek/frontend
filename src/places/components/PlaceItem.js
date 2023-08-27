@@ -25,11 +25,9 @@ const PlaceItem = props  =>{
         setConfirmModal(false);
         try {
           await sendRequest(
-            `http://localhost:5000/api/places/${props.id}`,
+            `${process.env.REACT_APP_BACKEND_URL}/places/${props.id}`,
             'DELETE',
-            {
-
-            },
+            null,
             {
               Authorization: 'Bearer ' + auth.token
             }
