@@ -11,7 +11,7 @@ const UserList = props => {
             <Card>
             <Link to={`/${props.id}/Places`}>
                 <div className='user-item__image'>
-                <Avatar image = {props.image} alt = {props.name} />
+                <Avatar image = {process.env.REACT_APP_ASSET_URL + props.image} alt = {props.name} />
                 </div>
                 <div className='user-item__info'>
                     <h2> {props.name} </h2>
